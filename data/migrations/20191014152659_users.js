@@ -7,30 +7,6 @@ exports.up = function (knex) {
       tbl.string('password').notNullable();
 
     })
-    .createTable('history', tbl => {
-      tbl.increments('id');
-      tbl.string('time_in').notNullable();
-      tbl.string('time_out').notNullable();
-      // Foreign Key
-      tbl
-        .integer('asset_id')
-        .unsigned()
-        .notNullable()
-        .references('id')
-        .inTable('assets')
-        .onDelete('RESTRICT')
-        .onUpdate('CASCADE');
-
-      tbl
-        .integer('user_id')
-        .unsigned()
-        .notNullable()
-        .references('id')
-        .inTable('users')
-        .onDelete('RESTRICT')
-        .onUpdate('CASCADE');
-
-    })
     .createTable('locations', tbl => {
       tbl.increments('id');
       tbl.string('name').notNullable().unique();
@@ -60,6 +36,27 @@ exports.up = function (knex) {
         .onDelete('RESTRICT')
         .onUpdate('CASCADE');
 
+    })
+    .createTable('history', tbl => {
+      tbl.increments('id');
+      tbl.string('time_in').notNullable();
+      tbl.string('time_out').notNullable();
+      tbl
+        .integer('user_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('users')
+        .onDelete('RESTRICT')
+        .onUpdate('CASCADE');
+      tbl
+        .integer('asset_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('assets')
+        .onDelete('RESTRICT')
+        .onUpdate('CASCADE');
     })
 
 };
