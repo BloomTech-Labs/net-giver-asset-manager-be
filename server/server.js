@@ -6,6 +6,7 @@ const helmet = require('helmet')
 
 const authRouter = require('../api/auth/auth-router.js');
 const assetsRouter = require('../api/assets/assets-router.js');
+const historyRouter = require('../api/history/history-router.js');
 
 
 server.use(express.json())
@@ -14,6 +15,7 @@ server.use(helmet())
 
 server.use('/api/auth', authRouter);
 server.use('/api/assets', assetsRouter);
+server.use('/api/history', historyRouter);
 
 server.get('/', (req, res) => {
     res.status(200).send("We are live!")
