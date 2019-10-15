@@ -4,16 +4,14 @@ const cors = require('cors');
 
 
 const assetsModel = require('./assets-model');
-const authenticate = require('../auth/auth-middleware');
 
 const server = express();
 
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
-server.use(authenticate);
 
-server.get('/', authenticate, (req, res) => {
+server.get('/', (req, res) => {
     assetsModel.getAssets()
         .then(assetsModel => {
             res.json(assetsModel);
@@ -21,7 +19,7 @@ server.get('/', authenticate, (req, res) => {
         .catch(err => res.send(err));
 });
 
-server.get('/:id', authenticate, (req, res) => {
+server.get('/:id', (req, res) => {
     const id = req.params.id;
     assetsModel.getAsset(id)
         .then(assetModel => {
@@ -30,7 +28,7 @@ server.get('/:id', authenticate, (req, res) => {
         .catch(err => res.send(err));
 });
 
-server.post('/', authenticate, (req, res) => {
+server.post('/', (req, res) => {
     const assetsData = req.body;
 
     const locationId = req.body.location_id
@@ -47,7 +45,7 @@ server.post('/', authenticate, (req, res) => {
 });
 
 
-server.put('/:id', authenticate, (req, res) => {
+server.put('/:id', (req, res) => {
     const id = req.params.id;
     const changes = req.body;
     assetsModel.updateAsset(id, changes)
@@ -58,7 +56,7 @@ server.put('/:id', authenticate, (req, res) => {
         });
 });
 
-server.delete('/:id', authenticate, (req, res) => {
+server.delete('/:id', (req, res) => {
     const id = req.params.id;
     assetsModel.removeAsset(id)
         .then(assetsModel => {
