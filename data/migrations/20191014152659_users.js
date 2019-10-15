@@ -15,6 +15,10 @@ exports.up = function (knex) {
       tbl.string('time_out').notNullable();
 
     })
+    .createTable('locations', tbl => {
+      tbl.increments('id');
+      tbl.string('name').notNullable().unique();
+    })
     .createTable('assets', tbl => {
       tbl.increments('id');
       tbl.string('name').notNullable();
@@ -47,6 +51,7 @@ exports.up = function (knex) {
 exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists('assets')
+    .dropTableIfExists('locations')
     .dropTableIfExists('history')
     .dropTableIfExists('users');
 
