@@ -9,10 +9,26 @@ exports.up = function (knex) {
     })
     .createTable('history', tbl => {
       tbl.increments('id');
-      tbl.string('asset_id').notNullable();
-      tbl.string('user_id').notNullable();
       tbl.string('time_in').notNullable();
       tbl.string('time_out').notNullable();
+      // Foreign Key
+      tbl
+        .integer('asset_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('assets')
+        .onDelete('RESTRICT')
+        .onUpdate('CASCADE');
+
+      tbl
+        .integer('user_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('users')
+        .onDelete('RESTRICT')
+        .onUpdate('CASCADE');
 
     })
     .createTable('locations', tbl => {
