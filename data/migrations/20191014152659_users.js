@@ -39,8 +39,6 @@ exports.up = function (knex) {
     })
     .createTable('history', tbl => {
       tbl.increments('id');
-      tbl.string('asset_id').notNullable();
-      tbl.string('user_id').notNullable();
       tbl.string('time_in').notNullable();
       tbl.string('time_out').notNullable();
       tbl
@@ -52,13 +50,13 @@ exports.up = function (knex) {
         .onDelete('RESTRICT')
         .onUpdate('CASCADE');
       tbl
-      .integer('asset_id')
-      .unsigned()
-      .notNullable()
-      .references('assets')
-      .inTable('users')
-      .onDelete('RESTRICT')
-      .onUpdate('CASCADE');
+        .integer('asset_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('assets')
+        .onDelete('RESTRICT')
+        .onUpdate('CASCADE');
     })
 
 };
