@@ -1,39 +1,17 @@
-// const express = require('express');
-// const helmet = require('helmet');
-// const cors = require('cors');
-
 const express = require('express');
-
 const Location = require('./location-model');
-const His = require('../locations/location-model');
-
 const router = express.Router();
 
-// const server = express();
-
-// server.use(helmet());
-// server.use(express.json());
-// server.use(cors());
-
-router.get('/loc', (req, res) => {
+router.get('/demo', (req, res) => {
     res.status(200).send("LOCATION AREA")
 });
 
-// router.get('/', (req, res) => {
-//     Location.get()
-//         .then(location => res.status(200).send("Hello world"))
-//         .catch(err => {
-//             console.log(err);
-//             res.status(500).json({ error: 'Could not retrieve locations' });
-//         });
-// })
-
 router.get('/', (req, res) => {
-    His.get()
+    Location.get()
         .then(items => res.status(200).json(items))
         .catch(err => {
             console.log(err);
-            res.status(500).json({ error: 'Could not retrieve locations' });
+            res.status(500).json({ error: 'Could not find locations' });
         });
 });
 
@@ -45,7 +23,7 @@ router.get('/:id', (req, res) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({ error: 'Could not retrieve location' });
+            res.status(500).json({ error: 'Could not find location' });
         });
 });
 
@@ -57,7 +35,7 @@ router.post('/', (req, res) => {
             res.status(201).json(item);
         })
         .catch(err => {
-            res.status(500).json({ message: 'error getting the list of hubs' });
+            res.status(500).json({ message: 'Error creating the location' });
         });
 });
 
@@ -69,7 +47,7 @@ router.put('/:id', (req, res) => {
         .then((Location) => {
             res.status(200).json({ message: `location ${id} updated!` })
         }).catch((err) => {
-            res.status(500).json({ message: 'Error Updating location' })
+            res.status(500).json({ message: 'Error updating location' })
         });
 });
 
@@ -80,7 +58,7 @@ router.delete('/:id', (req, res) => {
         .then(Location => {
             res.status(200).json({ message: `location ${id} is permanently deleted!` })
         }).catch((err) => {
-            res.status(500).json({ message: 'Error Deleting location' })
+            res.status(500).json({ message: 'Error deleting location' })
         });
 });
 
