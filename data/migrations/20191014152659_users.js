@@ -39,8 +39,8 @@ exports.up = function (knex) {
     })
     .createTable('history', tbl => {
       tbl.increments('id');
-      tbl.string('time_in').notNullable();
-      tbl.string('time_out').notNullable();
+      tbl.timestamp('time_in').defaultTo(knex.fn.now()).notNullable();
+      tbl.timestamp('time_out').defaultTo(knex.fn.now()).notNullable();
       tbl
         .integer('user_id')
         .unsigned()

@@ -36,7 +36,8 @@ server.post('/', (req, res) => {
 
     assetsData.location_id = locationId;
     assetsData.user_id = userId;
-    assetsModel.postasset(assetsData)
+
+    assetsModel.postAsset(assetsData)
         .then((assetsModel) => {
             res.status(200).json(assetsModel)
         }).catch((err) => {

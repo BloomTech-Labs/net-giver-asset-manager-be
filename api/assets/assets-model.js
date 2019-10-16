@@ -9,12 +9,12 @@ module.exports = {
 }
 
 function getAssets() {
-    return db('assets').select('id', 'name', 'category', 'description', 'location_id', 'user_id')
+    return db('assets').select('id', 'name', 'category', 'description', 'check_in', 'location_id', 'user_id')
 }
 function getAsset(id) {
     return db('assets')
         .where('id', id)
-        .select('id', 'name', 'category', 'description', 'location_id', 'user_id');
+        .select('id', 'name', 'category', 'description', 'check_in', 'location_id', 'user_id');
 }
 
 

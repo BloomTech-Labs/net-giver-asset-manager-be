@@ -1,13 +1,14 @@
 
-exports.seed = function(knex) {
+exports.seed = function (knex) {
   // Deletes ALL existing entries
   return knex('users').truncate()
     .then(function () {
       // Inserts seed entries
       return knex('users').insert([
-        {id: '1', email: 'a@a.com', password: '123'},
-        {id: '2', email: 'b@a.com', password: '123'},
-        {id: '3', email: 'c@a.com', password: '123'}
+        { id: '1', email: 'a@a.com', password: '123' },
+        { id: '2', email: 'b@a.com', password: '123' },
+        { id: '3', email: 'c@a.com', password: '123' },
+        { id: 6, email: 'test@test.com', password: '$2a$08$R8vjqjlKcRsNuYacfoDcZ.931fdU/3UYG36xX2n2V6iSWE1KePn.G' } // Password: 123456
       ]);
     });
 };
