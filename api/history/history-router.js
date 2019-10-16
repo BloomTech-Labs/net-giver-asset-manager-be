@@ -3,6 +3,15 @@ const History = require('./history-model.js');
 
 const router = express.Router();
 
+router.get('/', (req, res) => {
+    History.get()
+        .then(items => res.status(200).json(items))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({error: 'Could not retrieve history'});
+        });
+});
+
 router.get('/:id', (req, res) => {
     const { id } = req.params;
 
