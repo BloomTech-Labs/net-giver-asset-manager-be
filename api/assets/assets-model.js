@@ -9,7 +9,7 @@ module.exports = {
 }
 
 function getAssets() {
-    return db('assets').select('id', 'name', 'category', 'description', 'check_in', 'location_id', 'user_id')
+    return db('assets').select('id', 'name', 'category', 'description', 'photo', 'barcode', 'check_in_status', 'location_id', 'user_id')
 }
 function getAsset(id) {
     return db('assets')
