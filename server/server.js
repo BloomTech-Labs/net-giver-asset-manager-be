@@ -17,9 +17,9 @@ server.use(cors())
 server.use(helmet())
 
 server.use('/api/auth', authRouter);
-server.use('/api/assets', authenticate, assetsRouter);
-server.use('/api/history', authenticate, historyRouter);
-server.use('/api/location', authenticate, locationRouter);
+server.use('/api/assets', assetsRouter);
+server.use('/api/history', historyRouter);
+server.use('/api/location', locationRouter);
 
 
 server.get('/', (req, res) => {
