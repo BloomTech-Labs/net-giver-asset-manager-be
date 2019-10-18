@@ -17,7 +17,7 @@ exports.up = function (knex) {
       tbl.string('category');
       tbl.string('description');
       tbl.string('photo');
-      tbl.integer('barcode').notNullable();
+      tbl.string('barcode').notNullable();
       tbl.boolean('check_in_status').notNullable();
       // Foreign Key
       tbl
