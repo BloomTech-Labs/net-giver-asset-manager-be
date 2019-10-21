@@ -29,7 +29,10 @@ module.exports = {
   },
 
   production: {
-    client: 'pg',
+    client: 'sqlite3',
+    connection: {
+      filename: './data/netGiver.sqlite3'
+    },
     useNullAsDefault: true,
     connection: process.env.DATABASE_URL,
     migrations: {
