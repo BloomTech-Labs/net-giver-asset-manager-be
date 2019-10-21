@@ -65,9 +65,9 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists('assets')
+    .dropTableIfExists('users')
     .dropTableIfExists('locations')
     .dropTableIfExists('history')
-    .dropTableIfExists('users');
+    .dropTableIfExists('assets');
 
 };
