@@ -16,7 +16,9 @@ exports.up = function (knex) {
       tbl.string('name').notNullable();
       tbl.string('category');
       tbl.string('description');
-      tbl.boolean('check_in').notNullable();
+      tbl.string('photo');
+      tbl.string('barcode').notNullable();
+      tbl.boolean('check_in_status').notNullable();
       // Foreign Key
       tbl
         .integer('location_id')
@@ -63,9 +65,9 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists('assets')
+    .dropTableIfExists('users')
     .dropTableIfExists('locations')
     .dropTableIfExists('history')
-    .dropTableIfExists('users');
+    .dropTableIfExists('assets');
 
 };
