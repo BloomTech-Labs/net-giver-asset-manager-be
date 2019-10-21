@@ -12,7 +12,7 @@ module.exports = {
     migrations: {
       directory: './data/migrations'
     },
-    seeds:{
+    seeds: {
       directory: './data/seeds'
     }
   },
@@ -20,7 +20,7 @@ module.exports = {
   staging: {
     client: 'sqlite3',
     connection: {
-      filename:'./data/staging.sqlite3'
+      filename: './data/staging.sqlite3'
     },
     useDefaultAsTrue: true,
     migrations: {
@@ -35,5 +35,8 @@ module.exports = {
     migrations: {
       directory: './data/migrations',
     },
+    seeds: {
+      directory: './data/seeds'
+    }
   }
 };
