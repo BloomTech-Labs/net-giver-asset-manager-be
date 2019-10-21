@@ -14,18 +14,24 @@ server.use(cors());
 server.get('/', (req, res) => {
     assetsModel.getAssets()
         .then(assetsModel => {
-            res.json(assetsModel);
+            res.status(200).json(assetsModel);
         })
-        .catch(err => res.send(err));
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({error: 'Could not get retrieve assets'});
+        });
 });
 
 server.get('/:id', (req, res) => {
     const id = req.params.id;
     assetsModel.getAsset(id)
         .then(assetModel => {
-            res.json(assetModel);
+            res.status(200).json(assetModel);
         })
-        .catch(err => res.send(err));
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({error: 'Could not retrieve asset'});
+        });
 });
 
 server.post('/', (req, res) => {
