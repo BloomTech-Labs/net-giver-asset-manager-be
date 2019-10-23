@@ -5,8 +5,8 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex('locations').insert([
-        { id: 1, name: 'Disney World' },
-        { id: 2, name: 'Universal Studios' },
+        { id: 1, name: 'Storage Facility', description: 'Located inside campus B' },
+        { id: 2, name: 'Warehouse Campus A', description: 'Located in Alabama' },
       ]);
     });
 };

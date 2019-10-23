@@ -1,4 +1,4 @@
-exports.up = function(knex) {
+exports.up = function (knex) {
   return knex.schema
     .createTable("users", tbl => {
       tbl.increments("id");
@@ -10,10 +10,8 @@ exports.up = function(knex) {
     })
     .createTable("locations", tbl => {
       tbl.increments("id");
-      tbl
-        .string("name")
-        .notNullable()
-        .unique();
+      tbl.string("name").notNullable().unique();
+      tbl.string("description");
     })
     .createTable("assets", tbl => {
       tbl.increments("id");
@@ -65,7 +63,7 @@ exports.up = function(knex) {
     });
 };
 
-exports.down = function(knex) {
+exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists("history")
     .dropTableIfExists("assets")
