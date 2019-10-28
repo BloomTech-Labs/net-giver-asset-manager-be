@@ -1,32 +1,36 @@
-const express = require('express')
-const server = express()
+const express = require("express");
+const server = express();
 
-const cors = require('cors')
-const helmet = require('helmet')
+const cors = require("cors");
+const helmet = require("helmet");
 
-const authenticate = require('../api/auth/auth-middleware')
+const path = require("path");
+const bodyParser = require("body-parser");
 
-const authRouter = require('../api/auth/auth-router.js');
-const assetsRouter = require('../api/assets/assets-router.js');
-const historyRouter = require('../api/history/history-router.js');
-const locationRouter = require('../api/locations/location-router');
+const authenticate = require("../api/auth/auth-middleware");
 
+const authRouter = require("../api/auth/auth-router.js");
+const assetsRouter = require("../api/assets/assets-router.js");
+const historyRouter = require("../api/history/history-router.js");
+const locationRouter = require("../api/locations/location-router");
+const profileRouter = require("../api/aws/profile.js");
 
-server.use(express.json())
-server.use(cors())
-server.use(helmet())
+// server.use( bodyParser.urlencoded( { extended: false} ) );
+// server.use( bodyParser.json() );
+server.use(express.json());
+server.use(cors());
+server.use(helmet());
 
-server.use('/api/auth', authRouter);
+server.use("/api/amy", profileRouter);
 
-server.use('/api/assets', assetsRouter);
-server.use('/api/history', historyRouter);
-server.use('/api/location', locationRouter);
+server.use("/api/auth", authRouter);
 
+server.use("/api/assets", assetsRouter);
+server.use("/api/history", historyRouter);
+server.use("/api/location", locationRouter);
 
+server.get("/", (req, res) => {
+  res.status(200).send("We are live!");
+});
 
-server.get('/', (req, res) => {
-    res.status(200).send("We are live!")
-})
-
-
-module.exports = server
+module.exports = server;
