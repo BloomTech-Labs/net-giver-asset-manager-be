@@ -1,9 +1,9 @@
-const db = require("../../data/dbConfig");
-const aws = require("aws-sdk");
+// const db = require("../../data/dbConfig");
+// const aws = require("aws-sdk");
 
-module.exports = {
-  getObject
-};
+// module.exports = {
+//   getObject
+// };
 
 // const s3 = new aws.S3({
 //   accessKeyId: "AKIA4JDPGAQ6CRPLMUY4",
