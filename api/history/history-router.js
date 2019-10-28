@@ -32,7 +32,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     const { user_id, asset_id, time_in, time_out } = req.body;
 
-    if(user_id && asset_id && time_in && time_out) {
+    if(user_id && asset_id) {
         History.insert(req.body)
             .then(item => res.status(201).json(item))
             .catch(err => {
