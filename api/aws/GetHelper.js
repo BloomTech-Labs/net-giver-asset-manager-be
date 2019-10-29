@@ -1,5 +1,5 @@
-const db = require("../../data/dbConfig");
-const aws = require("aws-sdk");
+// const db = require("../../data/dbConfig");
+// const aws = require("aws-sdk");
 
 // module.exports = {
 //   getObject
