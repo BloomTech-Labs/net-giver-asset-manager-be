@@ -4,14 +4,14 @@ const multerS3 = require("multer-s3");
 const multer = require("multer");
 const path = require("path");
 const url = require("url");
-// const Helper = require("./GetHelper");
+const helper = require("./GetHelper");
 
 const router = express.Router();
 
 const s3 = new aws.S3({
-  accessKeyId: "AKIA4JDPGAQ6CRPLMUY4",
-  secretAccessKey: "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",
-  Bucket: "netgiver"
+  accessKeyId: "",
+  secretAccessKey: "",
+  Bucket: ""
 });
 
 /**
@@ -78,33 +78,8 @@ router.post("/profile-img-upload", (req, res) => {
   });
 });
 
-// GET URL Generator
-// const profileDownload = {
-//   Bucket: "netgiver",
-//   Key: ""
-// };
+// Get
 
-// router.get(".profile-img-upload", (req, res) => {
-// Both Key and ContentType are defined in the client side.
-// Key refers to the remote name of the file.
-//   const { Key } = req.query;
-//   profileDownload(Key)
-//     .then(geturl => {
-//       res.send(geturl);
-//     })
-//     .catch(err => {
-//       res.send(err);
-//     });
-// });
-
-// router.get('/profile-img-upload', (req, res) => {
-//   try {
-//       await Helper.getObject('netgiver', 'https://netgiver.s3.us-east-2.amazonaws.com/greynato-1572280483541.jpg')
-//       res.status(201).json({ message: 'you did it john nice work'})
-//   } catch (err) {
-//       res.status(500).json({ message: err })
-//   }
-
-// })
+// router.get("/images:id", helper.doDownload);
 
 module.exports = router;
