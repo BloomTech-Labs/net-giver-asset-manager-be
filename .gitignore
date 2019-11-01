@@ -3,6 +3,7 @@
 #dotenv environment variables file
 .env
 .env.js
+s3.env.js
 
 # Logs
 logs
