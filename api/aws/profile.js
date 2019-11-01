@@ -4,6 +4,7 @@ const multerS3 = require("multer-s3");
 const multer = require("multer");
 const path = require("path");
 const url = require("url");
+const env = require("./s3.env");
 
 const router = express.Router();
 
