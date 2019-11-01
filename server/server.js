@@ -14,6 +14,7 @@ const assetsRouter = require("../api/assets/assets-router.js");
 const historyRouter = require("../api/history/history-router.js");
 const locationRouter = require("../api/locations/location-router");
 const profileRouter = require("../api/aws/profile.js");
+const demoRouter = require("../api/aws/S3getRouter");
 
 // server.use( bodyParser.urlencoded( { extended: false} ) );
 // server.use( bodyParser.json() );
@@ -24,6 +25,7 @@ server.use(helmet());
 server.use("/api/amy", profileRouter);
 
 server.use("/api/auth", authRouter);
+server.use("/api/aws", demoRouter);
 
 server.use("/api/assets", assetsRouter);
 server.use("/api/history", historyRouter);

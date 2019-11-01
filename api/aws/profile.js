@@ -4,19 +4,15 @@ const multerS3 = require("multer-s3");
 const multer = require("multer");
 const path = require("path");
 const url = require("url");
-const helper = require("./GetHelper");
 
 const router = express.Router();
 
 const s3 = new aws.S3({
-  accessKeyId: "",
-  secretAccessKey: "",
-  Bucket: ""
+  accessKeyId: env.AWS_ACCESS_KEY,
+  secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+  Bucket: "netgiver"
 });
 
-/**
- * Single Upload
- */
 const profileImgUpload = multer({
   storage: multerS3({
     s3: s3,
@@ -32,7 +28,7 @@ const profileImgUpload = multer({
       );
     }
   }),
-  limits: { fileSize: 2000000 }, // In bytes: 2000000 bytes = 2 MB
+  limits: { fileSize: 2000000 },
   fileFilter: function(req, file, cb) {
     checkFileType(file, cb);
   }
@@ -77,9 +73,5 @@ router.post("/profile-img-upload", (req, res) => {
     }
   });
 });
-
-// Get
-
-// router.get("/images:id", helper.doDownload);
 
 module.exports = router;
