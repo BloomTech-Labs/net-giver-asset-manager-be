@@ -4,13 +4,13 @@ const multerS3 = require("multer-s3");
 const multer = require("multer");
 const path = require("path");
 const url = require("url");
-const env = require("./s3.env");
+// const env = require("./s3.env");
 
 const router = express.Router();
 
 const s3 = new aws.S3({
-  accessKeyId: env.AWS_ACCESS_KEY,
-  secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   Bucket: "netgiver"
 });
 
