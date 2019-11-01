@@ -2,6 +2,7 @@
 *.sqlite3
 #dotenv environment variables file
 .env
+.env.js
 
 # Logs
 logs
