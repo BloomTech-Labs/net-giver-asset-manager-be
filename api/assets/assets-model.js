@@ -14,7 +14,7 @@ function getAssets() {
 function getAsset(id) {
     return db('assets')
         .where('id', id)
-        .select('id', 'name', 'category', 'description', 'check_in', 'location_id', 'user_id');
+        .select('id', 'name', 'category', 'description', 'photo', 'barcode', 'check_in_status', 'location_id', 'user_id');
 }
 
 
