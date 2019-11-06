@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Start Phone Verification - Super Simple Account Security Demo</title>
-    <!--Made by an engineer for engineers-->
     <link rel="icon" type="image/png" href="/assets/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="/assets/favicon-16x16.png" sizes="16x16">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -31,7 +30,7 @@
         <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Account Security Phone Verification</h3>
+                    <h3 class="panel-title">Asset Tracker Phone Verification</h3>
                 </div>
                 <div class="panel-body" ng-show="view.start">
                     <form role="form">
@@ -54,75 +53,13 @@
                                            placeholder="Phone #">
                                 </div>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-2">
-                                <div class="form-group">
-                                    <select name="via" id="via" ng-model="setup.via"  class="form-control">
-                                        <option value="sms" selected="selected">SMS</option>
-                                        <option value="call">CALL</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-2">
-                                <div class="form-group">
-                                    <select name="locale" id="locale" ng-model="setup.locale"  class="form-control">
-                                        <option value="af">Afrikaans</option>
-                                        <option value="ar">Arabic</option>
-                                        <option value="ca">Catalan</option>
-                                        <option value="zh">Chinese</option>
-                                        <option value="zh-CN">Chinese (Mandarin)</option>
-                                        <option value="zh-HK">Chinese (Cantonese)</option>
-                                        <option value="hr">Croatian</option>
-                                        <option value="cs">Czech</option>
-                                        <option value="da">Danish</option>
-                                        <option value="nl">Dutch</option>
-                                        <option value="en" selected="selected">English</option>
-                                        <option value="fi">Finnish</option>
-                                        <option value="fr">French</option>
-                                        <option value="de">German</option>
-                                        <option value="el">Greek</option>
-                                        <option value="he">Hebrew</option>
-                                        <option value="hi">Hindi</option>
-                                        <option value="hu">Hungarian</option>
-                                        <option value="id">Indonesian</option>
-                                        <option value="it">Italian</option>
-                                        <option value="ja">Japanese</option>
-                                        <option value="ko">Korean</option>
-                                        <option value="ms">Malay</option>
-                                        <option value="nb">Norwegian</option>
-                                        <option value="pl">Polish</option>
-                                        <option value="pt-BR">Portuguese - Brazil</option>
-                                        <option value="pt">Protuguese</option>
-                                        <option value="ru">Russian</option>
-                                        <option value="es">Spanish</option>
-                                        <option value="sv">Swedish</option>
-                                        <option value="tl">Tagalog</option>
-                                        <option value="th">Thai</option>
-                                        <option value="tr">Turkish</option>
-                                        <option value="vi">Vietnamese</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" ng-show="info !== false">
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <h5>Lookup Information</h5>
-                                <pre>
-                                    {{info | json}}
-                                </pre>
-                                <p>Lookup allows you to determine if a user is signing up with a mobile number.  You may want to prevent users from registering from certain kinds of phones.</p>
-                            </div>
-                        </div>
 
-                        <input type="submit" value="Lookup Registration Number"
-                               ng-click="lookup()"
-                               class="btn btn-info btn-block">
-
-                        <input type="submit" ng-disabled="disabled" value="Request Verification"
+                        <input type="submit" value="Request Verification"
                                ng-click="startVerification()"
                                class="btn btn-info btn-block">
                     </form>
                 </div>
-                <div class="panel-body" ng-hide="view.start">
+                <div class="panel-body" ng-show="view.code">
                     <form role="form">
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">

@@ -1,3 +1,43 @@
+const cors = require("cors");
+const helmet = require("helmet");
+const path = require("path");
+const authenticate = require("./api/auth/auth-middleware");
+const authRouter = require("./api/auth/auth-router.js");
+const assetsRouter = require("./api/assets/assets-router.js");
+const historyRouter = require("./api/history/history-router.js");
+const locationRouter = require("./api/locations/location-router");
+const profileRouter = require("./api/aws/profile.js");
+const demoRouter = require("./api/aws/S3getRouter");
+
+require("dotenv").config();
+const PORT = process.env.PORT || 8000;
+
+require('./server/model/user_model');
+
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const expressSession = require('express-session');
+const mongoStore = require('connect-mongo')({session: expressSession});
+const mongoose = require('mongoose');
+
+const config = require('./server/config.js');
+
+const app = express();
+const server = require('http').Server(app);
+
+//
+app.use(express.json());
+app.use(cors());
+app.use(helmet());
+
+app.use("/api/amy", profileRouter);
+app.use("/api/aws", demoRouter);
+app.use("/api/assets", assetsRouter);
+app.use("/api/history", historyRouter);
+app.use("/api/location", locationRouter);
+
+
 // require("dotenv").config();
 // const server = require("./server/server");
 
@@ -7,25 +47,10 @@
 //   console.log("Server is currently running on port", PORT);
 // });
 
-// require('./server-be/model/user_model.js.js');
-
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const expressSession = require('express-session');
-const mongoose = require('mongoose');
-const mongoStore = require('connect-mongo')({session: expressSession});
-
-const config = require('./server/config.js');
-
-const app = express();
-const server = require('http').Server(app);
-
 if(!config.API_KEY){
     console.log("Please set your AUTHY_API_KEY environment variable before proceeding.");
     process.exit(1);
 }
-
 
 /**
  * Setup MongoDB connection.
@@ -177,9 +202,9 @@ router.route('/test').post(function(req, res){
 /**
  * All pages under protected require the user to be both logged in and authenticated via 2FA
  */
-app.all('/protected/*', requireLoginAnd2FA, function (req, res, next) {
-    next();
-});
+// app.all('/protected/*', requireLoginAnd2FA, function (req, res, next) {
+//     next();
+// });
 
 /**
  * Require user to be logged in to view 2FA page.
