@@ -28,15 +28,18 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    const locData = req.body;
-    console.log('data info ', locData);
-    Location.add(locData)
-        .then(item => {
-            res.status(201).json(item);
-        })
-        .catch(err => {
-            res.status(500).json({ message: 'Error creating the location' });
-        });
+    const { name, description, location } = req.body;
+    console.log('data info ', req.body);
+    if(name && description && location) {
+        Location.add(req.body)
+            .then(location => res.status(201).json(location))
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({error: 'Could not add location'});
+            });
+    } else {
+        res.status(400).json({message: 'Must include name, description, and location'});
+    }
 });
 
 

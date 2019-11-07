@@ -2,16 +2,15 @@ exports.up = function (knex) {
   return knex.schema
     .createTable("users", tbl => {
       tbl.increments("id");
-      tbl
-        .string("email")
-        .notNullable()
-        .unique();
+      tbl.string('username').unique().notNullable();
+      tbl.string("email").notNullable().unique();
       tbl.string("password").notNullable();
     })
     .createTable("locations", tbl => {
       tbl.increments("id");
       tbl.string("name").notNullable().unique();
       tbl.string("description");
+      tbl.string('location').notNullable();
     })
     .createTable("assets", tbl => {
       tbl.increments("id");
