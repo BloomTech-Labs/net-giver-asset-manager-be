@@ -14,13 +14,15 @@ function get() {
 }
 function getById(id) {
     return db('locations')
-        .where('id', id)
+        .where({id: id})
         .first();
 }
 
 
 function add(location) {
-    return db('locations').insert(location);
+    return db('locations')
+        .insert(location, 'id')
+        .then(([id]) => getById(id))
 }
 
 
