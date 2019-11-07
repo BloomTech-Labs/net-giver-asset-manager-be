@@ -8,35 +8,32 @@ const url = require("url");
 
 const router = express.Router();
 
-const s3 = new aws.S3({
-  accessKeyId: "AKIA4JDPGAQ6CRPLMUY4",
-  secretAccessKey: "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",
-  Bucket: "netgiver"
+aws.config.update({
+  accessKeyId: "AKIA4JDPGAQ6NBVLTSWV",
+  secretAccessKey: "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",
+  region: 'us-east-2'
 });
+
+const s3 = new aws.S3();
 
 /**
  * Single Upload
  */
-const profileImgUpload = multer({
+const upload = multer({
   storage: multerS3({
-    s3: s3,
-    bucket: "netgiver",
-    acl: "public-read",
-    key: function(req, file, cb) {
-      cb(
-        null,
-        path.basename(file.originalname, path.extname(file.originalname)) +
-          "-" +
-          Date.now() +
-          path.extname(file.originalname)
-      );
+    s3,
+    bucket: 'netgiver',
+    acl: 'public-read',
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: 'TESTING_META_DATA!'});
+    },
+    key: function (req, file, cb) {
+      cb(null, Date.now().toString())
     }
-  }),
-  limits: { fileSize: 2000000 }, // In bytes: 2000000 bytes = 2 MB
-  fileFilter: function(req, file, cb) {
-    checkFileType(file, cb);
-  }
-}).single("profileImage");
+  })
+})
+
+const singleUpload = upload.single('image');
 
 function checkFileType(file, cb) {
   // Allowed ext
@@ -52,31 +49,57 @@ function checkFileType(file, cb) {
   }
 }
 
-router.post("/profile-img-upload", (req, res) => {
-  profileImgUpload(req, res, error => {
-    // console.log( 'request', req.file );
-    // console.log( 'error', error );
-    if (error) {
-      console.log("errors", error);
-      res.json({ error: error });
-    } else {
-      // If File not found
-      if (req.file === undefined) {
-        console.log("Error: No File Selected!");
-        res.json("Error: No File Selected");
-      } else {
-        // If Success
-        const imageName = req.file.key;
-        const imageLocation = req.file.location;
-        // Save the file name into database into profile model
-        res.json({
-          image: imageName,
-          location: imageLocation
-        });
-      }
+// router.post("/profile-img-upload", (req, res) => {
+//   profileImgUpload(req, res, error => {
+//     // console.log( 'request', req.file );
+//     // console.log( 'error', error );
+//     if (error) {
+//       console.log("errors", error);
+//       res.json({ error: error });
+//     } else {
+//       // If File not found
+//       if (req.file === undefined) {
+//         console.log("Error: No File Selected!");
+//         res.json("Error: No File Selected");
+//       } else {
+//         // If Success
+//         const imageName = req.file.key;
+//         const imageLocation = req.file.location;
+//         // Save the file name into database into profile model
+//         res.json({
+//           image: imageName,
+//           location: imageLocation
+//         });
+//       }
+//     }
+//   });
+// });
+
+router.post('/upload', (req, res) => {
+  singleUpload(req, res, err => {
+    if(err) {
+      return res.status(422).json({error: err});
     }
+    return res.status(200).json({imageUrl: req.file.location});
   });
 });
+
+router.get('/signed', (req, res) => {
+  const params = {Bucket: 'netgiver', Key: 'greynato-1572279805779.jpg'};
+  const url = s3.getSignedUrl('getObject', params);
+  res.status(200).json(url).type(jpg);
+});
+
+router.get('/object', (req, res) => {
+  const params = {Bucket: 'netgiver', Key: 'greynato-1572279805779.jpg'};
+
+  s3.getObject(params, (err, data) => {
+    if (err) {
+        return res.send({ "error": err });
+    }
+    res.send({ data });
+});
+})
 
 // GET URL Generator
 // const profileDownload = {
