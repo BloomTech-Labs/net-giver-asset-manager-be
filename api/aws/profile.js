@@ -8,20 +8,6 @@ const url = require("url");
 
 const router = express.Router();
 
-<<<<<<< HEAD
-aws.config.update({
-  accessKeyId: "AKIA4JDPGAQ6NBVLTSWV",
-  secretAccessKey: "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",
-  region: 'us-east-2'
-});
-
-const s3 = new aws.S3();
-
-/**
- * Single Upload
- */
-const upload = multer({
-=======
 const s3 = new aws.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -29,7 +15,6 @@ const s3 = new aws.S3({
 });
 
 const profileImgUpload = multer({
->>>>>>> 25860f5080243767d102c05333f95f99c4269afd
   storage: multerS3({
     s3,
     bucket: 'netgiver',
@@ -40,19 +25,12 @@ const profileImgUpload = multer({
     key: function (req, file, cb) {
       cb(null, Date.now().toString())
     }
-<<<<<<< HEAD
-  })
-})
-
-const singleUpload = upload.single('image');
-=======
   }),
   limits: { fileSize: 2000000 },
   fileFilter: function(req, file, cb) {
     checkFileType(file, cb);
   }
 }).single("profileImage");
->>>>>>> 25860f5080243767d102c05333f95f99c4269afd
 
 function checkFileType(file, cb) {
   // Allowed ext
@@ -103,53 +81,4 @@ router.post('/upload', (req, res) => {
   });
 });
 
-<<<<<<< HEAD
-router.get('/signed', (req, res) => {
-  const params = {Bucket: 'netgiver', Key: 'greynato-1572279805779.jpg'};
-  const url = s3.getSignedUrl('getObject', params);
-  res.status(200).json(url).type(jpg);
-});
-
-router.get('/object', (req, res) => {
-  const params = {Bucket: 'netgiver', Key: 'greynato-1572279805779.jpg'};
-
-  s3.getObject(params, (err, data) => {
-    if (err) {
-        return res.send({ "error": err });
-    }
-    res.send({ data });
-});
-})
-
-// GET URL Generator
-// const profileDownload = {
-//   Bucket: "netgiver",
-//   Key: ""
-// };
-
-// router.get(".profile-img-upload", (req, res) => {
-// Both Key and ContentType are defined in the client side.
-// Key refers to the remote name of the file.
-//   const { Key } = req.query;
-//   profileDownload(Key)
-//     .then(geturl => {
-//       res.send(geturl);
-//     })
-//     .catch(err => {
-//       res.send(err);
-//     });
-// });
-
-// router.get('/profile-img-upload', (req, res) => {
-//   try {
-//       await Helper.getObject('netgiver', 'https://netgiver.s3.us-east-2.amazonaws.com/greynato-1572280483541.jpg')
-//       res.status(201).json({ message: 'you did it john nice work'})
-//   } catch (err) {
-//       res.status(500).json({ message: err })
-//   }
-
-// })
-
-=======
->>>>>>> 25860f5080243767d102c05333f95f99c4269afd
 module.exports = router;
