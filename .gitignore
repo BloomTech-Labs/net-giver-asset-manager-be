@@ -2,6 +2,8 @@
 *.sqlite3
 #dotenv environment variables file
 .env
+.env.js
+s3.env.js
 
 # Logs
 logs
@@ -62,6 +64,7 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+.env.js
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache

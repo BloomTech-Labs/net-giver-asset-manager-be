@@ -4,10 +4,11 @@ const multerS3 = require("multer-s3");
 const multer = require("multer");
 const path = require("path");
 const url = require("url");
-// const Helper = require("./GetHelper");
+// const env = require("./s3.env");
 
 const router = express.Router();
 
+<<<<<<< HEAD
 aws.config.update({
   accessKeyId: "AKIA4JDPGAQ6NBVLTSWV",
   secretAccessKey: "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",
@@ -20,6 +21,15 @@ const s3 = new aws.S3();
  * Single Upload
  */
 const upload = multer({
+=======
+const s3 = new aws.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  Bucket: "netgiver"
+});
+
+const profileImgUpload = multer({
+>>>>>>> 25860f5080243767d102c05333f95f99c4269afd
   storage: multerS3({
     s3,
     bucket: 'netgiver',
@@ -30,10 +40,19 @@ const upload = multer({
     key: function (req, file, cb) {
       cb(null, Date.now().toString())
     }
+<<<<<<< HEAD
   })
 })
 
 const singleUpload = upload.single('image');
+=======
+  }),
+  limits: { fileSize: 2000000 },
+  fileFilter: function(req, file, cb) {
+    checkFileType(file, cb);
+  }
+}).single("profileImage");
+>>>>>>> 25860f5080243767d102c05333f95f99c4269afd
 
 function checkFileType(file, cb) {
   // Allowed ext
@@ -84,6 +103,7 @@ router.post('/upload', (req, res) => {
   });
 });
 
+<<<<<<< HEAD
 router.get('/signed', (req, res) => {
   const params = {Bucket: 'netgiver', Key: 'greynato-1572279805779.jpg'};
   const url = s3.getSignedUrl('getObject', params);
@@ -130,4 +150,6 @@ router.get('/object', (req, res) => {
 
 // })
 
+=======
+>>>>>>> 25860f5080243767d102c05333f95f99c4269afd
 module.exports = router;

@@ -18,19 +18,20 @@ server.get('/', (req, res) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({error: 'Could not get retrieve assets'});
+            res.status(500).json({ error: 'Could not get retrieve assets' });
         });
 });
 
 server.get('/:id', (req, res) => {
     const id = req.params.id;
+
     assetsModel.getAsset(id)
         .then(assetModel => {
             res.status(200).json(assetModel);
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({error: 'Could not retrieve asset'});
+            res.status(500).json({ error: 'Could not retrieve asset' });
         });
 });
 
