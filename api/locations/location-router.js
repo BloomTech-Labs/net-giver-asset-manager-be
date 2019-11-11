@@ -40,7 +40,7 @@ router.post("/", (req, res) => {
   } else {
     res
       .status(400)
-      .json({ message: "Must include name, description, and location" });
+      .json({ message: "Must include name and location" });
   }
 });
 

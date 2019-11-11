@@ -10,7 +10,6 @@ exports.up = function (knex) {
       tbl.increments("id");
       tbl.string("name").notNullable().unique();
       tbl.string("description");
-      tbl.string('location').notNullable();
     })
     .createTable("assets", tbl => {
       tbl.increments("id");
@@ -36,6 +35,28 @@ exports.up = function (knex) {
         .notNullable()
         .references("id")
         .inTable("users")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+    })
+    .createTable('user_images', tbl => {
+      tbl.string('location').notNullable();
+      tbl
+        .integer('user_id')
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("users")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+    })
+    .createTable('asset_images', tbl => {
+      tbl.string('location').notNullable();
+      tbl
+        .integer('asset_id')
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("assets")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
     })
@@ -65,6 +86,8 @@ exports.up = function (knex) {
 exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists("history")
+    .dropTableIfExists("asset_images")
+    .dropTableIfExists("user_images")
     .dropTableIfExists("assets")
     .dropTableIfExists("locations")
     .dropTableIfExists("users");
