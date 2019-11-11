@@ -28,9 +28,9 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    const { name, description, location } = req.body;
+    const { name, description } = req.body;
     console.log('data info ', req.body);
-    if(name && description && location) {
+    if(name && description) {
         Location.add(req.body)
             .then(location => res.status(201).json(location))
             .catch(err => {
@@ -38,7 +38,7 @@ router.post('/', (req, res) => {
                 res.status(500).json({error: 'Could not add location'});
             });
     } else {
-        res.status(400).json({message: 'Must include name, description, and location'});
+        res.status(400).json({message: 'Must include name and description'});
     }
 });
 
