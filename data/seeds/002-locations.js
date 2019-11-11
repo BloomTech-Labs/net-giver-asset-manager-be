@@ -9,13 +9,11 @@ exports.seed = function(knex) {
           id: 1,
           name: "Storage Facility",
           description: "Located inside campus B",
-          location: "backyard"
         },
         {
           id: 2,
           name: "Warehouse Campus A",
           description: "Located in Alabama",
-          location: "frontyard"
         }
       ]);
     });

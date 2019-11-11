@@ -27,7 +27,7 @@ function getByEmail(email) {
 
 function getImageById(id) {
   return db('user_images')
-    .where({id: id})
+    .where({user_id: id})
     .first();
 }
 
