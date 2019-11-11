@@ -11,14 +11,16 @@ router.post("/register", (req, res) => {
   const hash = bcrypt.hashSync(password, 8);
 
   if (email && password && username) {
-    Users.insert({ email, password: hash })
+    Users.insert({ email, password: hash, username })
       .then(user => {
         token = generateToken(user);
         res.status(201).json({ user, token });
       })
       .catch(err => {
         console.log(err);
-        res.status(500).json({ error: "Could not register user" });
+        res
+          .status(500)
+          .json({ error: "Could not register user, try again", err });
       });
   } else {
     res
@@ -31,6 +33,7 @@ router.post("/login", (req, res) => {
   const { email, password, username } = req.body;
 
   if ((email && password, username)) {
+    console.log("userTest:", email, password, username);
     Users.getByEmail(email)
       .then(user => {
         if (user && bcrypt.compareSync(password, user.password)) {
