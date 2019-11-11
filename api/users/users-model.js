@@ -4,7 +4,9 @@ module.exports = {
   getById,
   getByEmail,
   insert,
-  get
+  insertImage,
+  get,
+  getImageById
 };
 
 function get() {
@@ -23,8 +25,20 @@ function getByEmail(email) {
     .first();
 }
 
+function getImageById(id) {
+  return db('user_images')
+    .where({id: id})
+    .first();
+}
+
 function insert(user) {
   return db("users")
     .insert(user, "id")
     .then(([id]) => getById(id));
+}
+
+function insertImage(image) {
+  return db('user_images')
+    .insert(image, 'user_id')
+    .then(([user_id]) => getImageById(user_id));
 }
