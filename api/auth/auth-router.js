@@ -7,10 +7,10 @@ const Users = require("../users/users-model.js");
 const router = express.Router();
 
 router.post("/register", (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, username } = req.body;
   const hash = bcrypt.hashSync(password, 8);
 
-  if (email && password) {
+  if (email && password && username) {
     Users.insert({ email, password: hash })
       .then(user => {
         token = generateToken(user);
@@ -21,21 +21,25 @@ router.post("/register", (req, res) => {
         res.status(500).json({ error: "Could not register user" });
       });
   } else {
-    res.status(400).json({ message: "Must provide email and password" });
+    res
+      .status(400)
+      .json({ message: "Must provide email, password and username" });
   }
 });
 
 router.post("/login", (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, username } = req.body;
 
-  if (email && password) {
+  if ((email && password, username)) {
     Users.getByEmail(email)
       .then(user => {
         if (user && bcrypt.compareSync(password, user.password)) {
           const token = generateToken(user);
           res.status(200).json({ user, token });
         } else {
-          res.status(401).json({ message: "Invalid email or password" });
+          res
+            .status(401)
+            .json({ message: "Invalid email or password or username" });
         }
       })
       .catch(err => {
@@ -43,7 +47,9 @@ router.post("/login", (req, res) => {
         res.status(500).json({ error: "Could not log in" });
       });
   } else {
-    res.status(400).json({ message: "Must provide email and password" });
+    res
+      .status(400)
+      .json({ message: "Must provide email, password and username" });
   }
 });
 
