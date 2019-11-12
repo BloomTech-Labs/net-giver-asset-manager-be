@@ -11,6 +11,31 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
+server.get('/:id', (req, res) => {
+    const { id } = req.params;
+    assetsModel.getAssetImageById(id)
+        .then(image => res.status(200).json(image))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({error: 'Could not retrieve image'});
+        });
+});
+
+// post asset image
+server.post('/', (req, res) => {
+    const { location, asset_id } = req.body;
+    if(location && asset_id) {
+        assetsModel.insertImage(req.body)
+            .then(image => res.status(201).json(image))
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({error: 'Could not post image'});
+            });
+    } else {
+        res.status(400).json({message: 'Must include location and user_id'});
+    }
+});
+
 server.get('/', (req, res) => {
     assetsModel.getAssets()
         .then(assetsModel => {
@@ -73,6 +98,8 @@ server.delete('/:id', (req, res) => {
             res.status(500).json({ message: 'Error Deleting asset' })
         });
 });
+
+
 
 module.exports = server;
 

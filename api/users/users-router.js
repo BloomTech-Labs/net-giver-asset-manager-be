@@ -2,6 +2,7 @@ const express = require('express');
 const Users = require('./users-model');
 const router = express.Router();
 
+// get image by user id
 router.get('/:id', (req, res) => {
     const { id } = req.params;
     Users.getImageById(id)
@@ -14,9 +15,10 @@ router.get('/:id', (req, res) => {
         });
 });
 
+// post user image
 router.post('/', (req, res) => {
     const { location, user_id } = req.body;
-    if(location, user_id) {
+    if(location && user_id) {
         Users.insertImage(req.body)
             .then(image => {
                 console.log(image);
