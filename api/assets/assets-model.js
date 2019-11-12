@@ -5,7 +5,9 @@ module.exports = {
     getAsset,
     postAsset,
     updateAsset,
-    removeAsset
+    removeAsset,
+    insertImage,
+    getAssetImageById
 }
 
 function getAssets() {
@@ -32,4 +34,14 @@ function removeAsset(id) {
     return db('assets')
         .where('id', id)
         .del();
+}
+function insertImage(image) {
+    return db('asset_images')
+        .insert(image)
+        .then(() => image);
+}
+function getAssetImageById(id) {
+    return db('asset_images')
+        .where({asset_id: id})
+        .first();
 }

@@ -39,6 +39,6 @@ function insert(user) {
 
 function insertImage(image) {
   return db('user_images')
-    .insert(image, 'user_id')
-    .then(([user_id]) => getImageById(user_id));
+    .insert(image)
+    .then(() => image);
 }
