@@ -6,11 +6,16 @@ module.exports = {
   insert,
   insertImage,
   get,
+  getImages,
   getImageById
 };
 
 function get() {
   return db("users");
+}
+
+function getImages() {
+  return db('user_images');
 }
 
 function getById(id) {

@@ -2,6 +2,16 @@ const express = require('express');
 const Users = require('./users-model');
 const router = express.Router();
 
+// get all user images
+router.get('/', (req, res) => {
+    Users.getImages()
+        .then(users => res.status(200).json(users))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({error: 'Could not retrieve users'});
+        });
+});
+
 // get image by user id
 router.get('/:id', (req, res) => {
     const { id } = req.params;
