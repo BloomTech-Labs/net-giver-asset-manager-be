@@ -11,24 +11,26 @@ exports.up = function (knex) {
       tbl.string("name").notNullable().unique();
       tbl.string("description");
     })
+    .createTable('asset_images', tbl => {
+      tbl.string('location').notNullable();
+      tbl.integer('asset_img_id').unique().notNullable();
+    })
     .createTable("assets", tbl => {
       tbl.increments("id");
+      tbl
+        .integer("asset_img_id")
+        .unsigned()
+        .notNullable()
+        .references("asset_img_id")
+        .inTable("asset_images")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
       tbl.string("name").notNullable();
       tbl.string("category");
       tbl.string("description");
-      tbl.string("photo");
       tbl.string("barcode").notNullable();
-      tbl.boolean("check_in_status").notNullable();
+      tbl.boolean("check_in_status").defaultTo(true);
       // Foreign Key
-      tbl
-        .integer("location_id")
-        .unsigned()
-        .notNullable()
-        .references("id")
-        .inTable("locations")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
-
       tbl
         .integer("user_id")
         .unsigned()
@@ -49,17 +51,6 @@ exports.up = function (knex) {
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
     })
-    .createTable('asset_images', tbl => {
-      tbl.string('location').notNullable();
-      tbl
-        .integer('asset_id')
-        .unsigned()
-        .notNullable()
-        .references("id")
-        .inTable("assets")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
-    })
     .createTable("history", tbl => {
       tbl.increments("id");
       tbl.timestamp("time_in").defaultTo(knex.fn.now());
@@ -76,8 +67,8 @@ exports.up = function (knex) {
         .integer("asset_id")
         .unsigned()
         .notNullable()
-        .references("id")
-        .inTable("assets")
+        .references("asset_img_id")
+        .inTable("asset_images")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
     });
@@ -86,9 +77,9 @@ exports.up = function (knex) {
 exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists("history")
+    .dropTableIfExists("assets")
     .dropTableIfExists("asset_images")
     .dropTableIfExists("user_images")
-    .dropTableIfExists("assets")
     .dropTableIfExists("locations")
     .dropTableIfExists("users");
 };
