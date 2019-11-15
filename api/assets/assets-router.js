@@ -20,6 +20,7 @@ server.get('/img', (req, res) => {
     });
 });
 
+// get asset image by id
 server.get("/img/:id", (req, res) => {
   const { id } = req.params;
   assetsModel
