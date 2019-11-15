@@ -16,6 +16,7 @@ exports.up = function (knex) {
       tbl.integer('asset_img_id').unique().notNullable();
     })
     .createTable("assets", tbl => {
+      tbl.increments("id");
       tbl
         .integer("asset_img_id")
         .unsigned()
