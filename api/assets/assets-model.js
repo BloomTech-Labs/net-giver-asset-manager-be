@@ -12,12 +12,12 @@ module.exports = {
 }
 
 function getAssets() {
-    return db('assets').select('id', 'name', 'category', 'description', 'photo', 'barcode', 'check_in_status', 'location_id', 'user_id')
+    return db('assets').select('id', 'name', 'category', 'description', 'barcode', 'check_in_status', 'user_id', 'asset_img_id')
 }
 function getAsset(id) {
     return db('assets')
         .where('id', id)
-        .select('id', 'name', 'category', 'description', 'photo', 'barcode', 'check_in_status', 'location_id', 'user_id');
+        .select('id', 'name', 'category', 'description', 'barcode', 'check_in_status', 'user_id', 'asset_img_id');
 }
 
 function getAssetImages() {
@@ -48,6 +48,6 @@ function insertImage(image) {
 }
 function getAssetImageById(id) {
     return db('asset_images')
-        .where({asset_img_id: id})
+        .where({ asset_img_id: id })
         .first();
 }
