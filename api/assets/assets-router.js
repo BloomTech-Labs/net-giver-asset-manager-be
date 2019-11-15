@@ -10,6 +10,7 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
+// get all asset images
 server.get('/img', (req, res) => {
   assetsModel.getAssetImages()
     .then(images => res.status(200).json(images))
