@@ -3,6 +3,7 @@ const db = require('../../data/dbConfig');
 module.exports = {
     getAssets,
     getAsset,
+    getAssetImages,
     postAsset,
     updateAsset,
     removeAsset,
@@ -19,9 +20,14 @@ function getAsset(id) {
         .select('id', 'name', 'category', 'description', 'photo', 'barcode', 'check_in_status', 'location_id', 'user_id');
 }
 
+function getAssetImages() {
+    return db('asset_images');
+}
 
 function postAsset(asset) {
-    return db('assets').insert(asset);
+    return db('assets')
+        .insert(asset)
+        .then(() => asset);
 }
 
 
@@ -42,6 +48,6 @@ function insertImage(image) {
 }
 function getAssetImageById(id) {
     return db('asset_images')
-        .where({asset_id: id})
+        .where({asset_img_id: id})
         .first();
 }

@@ -10,6 +10,15 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
+server.get('/img', (req, res) => {
+  assetsModel.getAssetImages()
+    .then(images => res.status(200).json(images))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({error: 'Could not retrieve images'});
+    });
+});
+
 server.get("/img/:id", (req, res) => {
   const { id } = req.params;
   assetsModel
@@ -23,8 +32,8 @@ server.get("/img/:id", (req, res) => {
 
 // post asset image
 server.post("/img", (req, res) => {
-  const { location, asset_id } = req.body;
-  if (location && asset_id) {
+  const { location, asset_img_id } = req.body;
+  if (location && asset_img_id) {
     assetsModel
       .insertImage(req.body)
       .then(image => res.status(201).json(image))
@@ -33,7 +42,7 @@ server.post("/img", (req, res) => {
         res.status(500).json({ error: "Could not post image" });
       });
   } else {
-    res.status(400).json({ message: "Must include location and user_id" });
+    res.status(400).json({ message: "Must include location and asset_img_id" });
   }
 });
 
@@ -64,22 +73,18 @@ server.get("/:id", (req, res) => {
 });
 
 server.post("/", (req, res) => {
-  const assetsData = req.body;
+  const { name, barcode, asset_img_id } = req.body;
 
-  const locationId = req.body.location_id;
-  const userId = req.body.user_id;
-
-  assetsData.location_id = locationId;
-  assetsData.user_id = userId;
-
-  assetsModel
-    .postAsset(assetsData)
-    .then(assetsModel => {
-      res.status(200).json(assetsModel);
-    })
-    .catch(err => {
-      res.status(500).json({ message: "Error adding asset" });
-    });
+  if(name && barcode && asset_img_id) {
+    assetsModel.postAsset(req.body)
+      .then(asset => res.status(201).json(asset))
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({error: 'Could not post asset'});
+      });
+  } else {
+    res.status(400).json({message: 'Must include name, barcode, and asset_img_id'});
+  }
 });
 
 server.put("/:id", (req, res) => {
