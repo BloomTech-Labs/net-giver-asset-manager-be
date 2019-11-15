@@ -15,8 +15,16 @@ exports.up = function (knex) {
       tbl.string('location').notNullable();
       tbl.integer('asset_img_id').unique().notNullable();
     })
+
+
     .createTable("assets", tbl => {
       tbl.increments("id");
+      tbl.string("name").notNullable();
+      tbl.string("category");
+      tbl.string("description");
+      tbl.string("barcode").notNullable();
+      tbl.boolean("check_in_status").defaultTo(true);
+      // Foreign Key
       tbl
         .integer("asset_img_id")
         .unsigned()
@@ -25,12 +33,6 @@ exports.up = function (knex) {
         .inTable("asset_images")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      tbl.string("name").notNullable();
-      tbl.string("category");
-      tbl.string("description");
-      tbl.string("barcode").notNullable();
-      tbl.boolean("check_in_status").defaultTo(true);
-      // Foreign Key
       tbl
         .integer("user_id")
         .unsigned()
@@ -40,6 +42,8 @@ exports.up = function (knex) {
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
     })
+
+
     .createTable('user_images', tbl => {
       tbl.string('location').notNullable();
       tbl
