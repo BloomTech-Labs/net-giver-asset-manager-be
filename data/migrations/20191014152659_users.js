@@ -13,7 +13,7 @@ exports.up = function (knex) {
     })
     .createTable('asset_images', tbl => {
       tbl.string('location').notNullable();
-      tbl.integer('asset_img_id').unique().notNullable();
+      tbl.bigInteger('asset_img_id').unique().notNullable();
     })
 
 
