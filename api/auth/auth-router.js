@@ -66,6 +66,18 @@ router.get("/users", (req, res) => {
     });
 });
 
+router.put("/users/:id", (req, res) => {
+  const id = req.params.id;
+  const changes = req.body;
+  Users.updateUser(id, changes)
+    .then(users => {
+      res.status(200).json({ message: `user ${id} updated!`, users });
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Error Updating user", err });
+    });
+});
+
 function generateToken(user) {
   const payload = {
     subject: user.id,
