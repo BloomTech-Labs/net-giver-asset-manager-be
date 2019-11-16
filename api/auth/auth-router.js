@@ -66,6 +66,7 @@ router.get("/users", (req, res) => {
     });
 });
 
+// update users for edit profile
 router.put("/users/:id", (req, res) => {
   const id = req.params.id;
   const changes = req.body;
