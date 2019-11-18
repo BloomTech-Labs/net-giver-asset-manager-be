@@ -16,7 +16,7 @@ server.get('/img', (req, res) => {
     .then(images => res.status(200).json(images))
     .catch(err => {
       console.log(err);
-      res.status(500).json({error: 'Could not retrieve images'});
+      res.status(500).json({ error: 'Could not retrieve images' });
     });
 });
 
@@ -75,17 +75,21 @@ server.get("/:id", (req, res) => {
 });
 
 server.post("/", (req, res) => {
-  const { name, barcode, asset_img_id } = req.body;
+  const { name, barcode, pic_img_id } = req.body;
 
-  if(name && barcode && asset_img_id) {
+  if (name && barcode && pic_img_id) {
+    console.log("req.body", req.body)
     assetsModel.postAsset(req.body)
-      .then(asset => res.status(201).json(asset))
+      .then(asset => {
+        res.status(201).json(asset)
+        console.log('success')
+      })
       .catch(err => {
-        console.log(err);
-        res.status(500).json({error: 'Could not post asset'});
+        console.log(err, assetsModel);
+        res.status(500).json({ error: 'Could not post asset' });
       });
   } else {
-    res.status(400).json({message: 'Must include name, barcode, and asset_img_id'});
+    res.status(400).json({ message: 'Must include name, barcode, and pic_img_id' });
   }
 });
 
