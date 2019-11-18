@@ -12,7 +12,7 @@ module.exports = {
 }
 
 function getAssets() {
-    return db('assets').select('id', 'name', 'category', 'description', 'barcode', 'check_in_status', 'user_id', 'pic_img_id')
+    return db('assets');
 }
 function getAsset(id) {
     return db('assets')
@@ -43,8 +43,8 @@ function removeAsset(id) {
 }
 function insertImage(image) {
     return db('asset_images')
-        .insert(image)
-        .then(() => image);
+        .insert(image, 'asset_img_id')
+        .then(([asset_img_id]) => getAssetImageById(asset_img_id));
 }
 function getAssetImageById(id) {
     return db('asset_images')
