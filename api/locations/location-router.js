@@ -28,9 +28,9 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { name, location } = req.body;
+  const { name } = req.body;
   console.log("data info ", req.body);
-  if (name && location) {
+  if (name) {
     Location.add(req.body)
       .then(location => res.status(201).json(location))
       .catch(err => {

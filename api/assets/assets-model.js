@@ -12,12 +12,12 @@ module.exports = {
 }
 
 function getAssets() {
-    return db('assets').select('id', 'name', 'category', 'description', 'barcode', 'check_in_status', 'user_id', 'asset_img_id')
+    return db('assets').select('id', 'name', 'category', 'description', 'barcode', 'check_in_status', 'user_id', 'pic_img_id')
 }
 function getAsset(id) {
     return db('assets')
         .where('id', id)
-        .select('id', 'name', 'category', 'description', 'barcode', 'check_in_status', 'user_id', 'asset_img_id');
+        .select('id', 'name', 'category', 'description', 'barcode', 'check_in_status', 'user_id', 'pic_img_id');
 }
 
 function getAssetImages() {
