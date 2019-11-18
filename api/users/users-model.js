@@ -7,7 +7,8 @@ module.exports = {
   insertImage,
   get,
   getImages,
-  getImageById
+  getImageById,
+  updateUser
 };
 
 function get() {
@@ -15,7 +16,7 @@ function get() {
 }
 
 function getImages() {
-  return db('user_images');
+  return db("user_images");
 }
 
 function getById(id) {
@@ -31,8 +32,8 @@ function getByEmail(email) {
 }
 
 function getImageById(id) {
-  return db('user_images')
-    .where({user_id: id})
+  return db("user_images")
+    .where({ user_id: id })
     .first();
 }
 
@@ -43,7 +44,13 @@ function insert(user) {
 }
 
 function insertImage(image) {
-  return db('user_images')
+  return db("user_images")
     .insert(image)
     .then(() => image);
+}
+
+function updateUser(id, changes) {
+  return db("users")
+    .where({ id })
+    .update(changes);
 }

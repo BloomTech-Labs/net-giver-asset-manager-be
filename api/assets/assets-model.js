@@ -17,7 +17,7 @@ function getAssets() {
 function getAsset(id) {
     return db('assets')
         .where('id', id)
-        .select('id', 'name', 'category', 'description', 'photo', 'barcode', 'check_in_status', 'location_id', 'user_id');
+        .select('id', 'name', 'category', 'description', 'barcode', 'check_in_status', 'user_id', 'pic_img_id');
 }
 
 function getAssetImages() {
@@ -43,11 +43,11 @@ function removeAsset(id) {
 }
 function insertImage(image) {
     return db('asset_images')
-        .insert(image)
-        .then(() => image);
+        .insert(image, 'asset_img_id')
+        .then(([asset_img_id]) => getAssetImageById(asset_img_id));
 }
 function getAssetImageById(id) {
     return db('asset_images')
-        .where({asset_img_id: id})
+        .where({ asset_img_id: id })
         .first();
 }

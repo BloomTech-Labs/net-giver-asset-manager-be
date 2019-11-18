@@ -15,7 +15,7 @@ const historyRouter = require("../api/history/history-router.js");
 const locationRouter = require("../api/locations/location-router");
 const profileRouter = require("../api/aws/profile.js");
 const demoRouter = require("../api/aws/S3getRouter");
-const userRouter = require('../api/users/users-router')
+const userRouter = require('../api/users/users-router');
 
 // server.use( bodyParser.urlencoded( { extended: false} ) );
 // server.use( bodyParser.json() );
@@ -31,7 +31,8 @@ server.use("/api/aws", demoRouter);
 server.use("/api/assets", assetsRouter);
 server.use("/api/history", historyRouter);
 server.use("/api/location", locationRouter);
-server.use('/api/user-images', userRouter)
+server.use('/api/user-images', userRouter);
+
 
 server.get("/", (req, res) => {
   res.status(200).send("We are live!");
