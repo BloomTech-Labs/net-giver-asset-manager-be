@@ -12,7 +12,7 @@ module.exports = {
 }
 
 function getAssets() {
-    return db('assets').select('id', 'name', 'category', 'description', 'photo', 'barcode', 'check_in_status', 'location_id', 'user_id')
+    return db('assets');
 }
 function getAsset(id) {
     return db('assets')
