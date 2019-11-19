@@ -81,7 +81,7 @@ server.get("/:id", (req, res) => {
 
 server.post("/", (req, res) => {
   const { name, barcode, pic_img_id } = req.body;
-
+  console.log("req body", req.body)
   if (name && barcode && pic_img_id) {
     console.log("req.body", req.body)
     assetsModel.postAsset(req.body)
