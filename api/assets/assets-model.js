@@ -47,7 +47,8 @@ function insertImage(image) {
         .then(() => image);
 }
 function getAssetImageById(id) {
-    return db('asset_images')
-        .where({ asset_img_id: id })
+    return db('asset_images').select('id', 'location')
+        .where({ 'id': id })
         .first();
 }
+

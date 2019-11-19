@@ -66,6 +66,18 @@ router.get("/users", (req, res) => {
     });
 });
 
+// get users for edit profile
+router.get("/users/:id", (req, res) => {
+  const id = req.params.id;
+  Users.getById(id)
+    .then(users => {
+      res.status(200).json(users);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Error Updating user", err });
+    });
+});
+
 // update users for edit profile
 router.put("/users/:id", (req, res) => {
   const id = req.params.id;
