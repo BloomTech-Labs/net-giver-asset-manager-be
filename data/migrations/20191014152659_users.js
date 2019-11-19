@@ -9,6 +9,9 @@ exports.up = function (knex) {
     .createTable("locations", tbl => {
       tbl.increments("id");
       tbl.string("name").notNullable().unique();
+      tbl.string("location_qrcode").notNullable();
+      tbl.string("container");
+      tbl.string("address");
       tbl.string("description");
     })
     .createTable('asset_images', tbl => {
@@ -17,7 +20,6 @@ exports.up = function (knex) {
       tbl.string('location').notNullable()
 
     })
-
 
     .createTable("assets", tbl => {
       tbl.increments("id");
