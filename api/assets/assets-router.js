@@ -21,14 +21,19 @@ server.get('/img', (req, res) => {
 });
 
 // get asset image by id
+
+
 server.get("/img/:id", (req, res) => {
-  const { id } = req.params;
+  const id = req.params.id;
+
   assetsModel
     .getAssetImageById(id)
-    .then(image => res.status(200).json(image))
+    .then(assetImage => {
+      res.status(200).json(assetImage);
+    })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: "Could not retrieve image" });
+      res.status(500).json({ error: "Could not retrieve asset" });
     });
 });
 
