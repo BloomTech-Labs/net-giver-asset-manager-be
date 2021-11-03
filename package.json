@@ -41,7 +41,7 @@
     "sqlite3": "^4.1.0",
     "stream": "0.0.2",
     "url": "^0.11.0",
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "cross-env": "^6.0.0",
